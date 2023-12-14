@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "V2Pair": {
+      "address": "0xBa2A50B90f055781c2C0846C4b548980831Cc3f3",
+      "startBlock": 18730054
+    }
+  }
+}
