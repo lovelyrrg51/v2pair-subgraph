@@ -1,27 +1,11 @@
 import {
-  Approval as ApprovalEvent,
   Burn as BurnEvent,
   Mint as MintEvent,
   Swap as SwapEvent,
   Sync as SyncEvent,
   Transfer as TransferEvent
 } from "../generated/V2Pair/V2Pair"
-import { Approval, Burn, Mint, Swap, Sync, Transfer } from "../generated/schema"
-
-export function handleApproval(event: ApprovalEvent): void {
-  let entity = new Approval(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.owner = event.params.owner
-  entity.spender = event.params.spender
-  entity.value = event.params.value
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
+import { Burn, Mint, Swap, Sync, Transfer } from "../generated/schema"
 
 export function handleBurn(event: BurnEvent): void {
   let entity = new Burn(
