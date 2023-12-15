@@ -8,7 +8,9 @@ import {
   Mint as MintEvent,
   Burn as BurnEvent,
   Swap as SwapEvent,
-  Bundle
+  Bundle,
+  PairDayData,
+  PairSyncData
 } from '../generated/schema'
 import { V2Pair as PairContract, Mint, Burn, Swap, Transfer, Sync } from '../generated/V2Pair/V2Pair'
 import { updatePairDayData, updateTokenDayData, updatePairHourData, updateUniswapDayData } from './dayUpdates'
@@ -268,11 +270,29 @@ export function handleSync(event: Sync): void {
   token0!.totalLiquidity = token0!.totalLiquidity.plus(pair!.reserve0)
   token1!.totalLiquidity = token1!.totalLiquidity.plus(pair!.reserve1)
 
+  // create pair sync data
+  let transaction = Transaction.load(event.transaction.hash.toHexString())
+  if (transaction === null) {
+    transaction = new Transaction(event.transaction.hash.toHexString())
+    transaction.blockNumber = event.block.number
+    transaction.timestamp = event.block.timestamp
+    transaction.mints = []
+    transaction.swaps = []
+    transaction.burns = []
+  }
+  let newSyncData = new PairSyncData(event.transaction.hash.toHexString());
+  newSyncData.pair = pair!.id;
+  newSyncData.timestamp = event.block.timestamp
+  newSyncData.transaction = transaction.id
+  newSyncData.reserve0 = pair!.reserve0
+  newSyncData.reserve1 = pair!.reserve1
+
   // save entities
   pair!.save()
   uniswap!.save()
   token0!.save()
   token1!.save()
+  newSyncData.save()
 }
 
 export function handleMint(event: Mint): void {
@@ -486,6 +506,8 @@ export function handleSwap(event: Swap): void {
   swap.timestamp = transaction.timestamp
   swap.transaction = transaction.id
   swap.sender = event.params.sender
+  swap.prevReserve0 = pair!.reserve0
+  swap.prevReserve1 = pair!.reserve1
   swap.amount0In = amount0In
   swap.amount1In = amount1In
   swap.amount0Out = amount0Out

@@ -199,6 +199,8 @@ type Swap @entity {
   # populated from the Swap event
   sender: Bytes!
   from: Bytes! # the EOA that initiated the txn
+  prevReserve0: BigDecimal!
+  prevReserve1: BigDecimal!
   amount0In: BigDecimal!
   amount1In: BigDecimal!
   amount0Out: BigDecimal!
@@ -231,6 +233,16 @@ type UniswapDayData @entity {
   totalLiquidityUSD: BigDecimal!
 
   txCount: BigInt!
+}
+
+type PairSyncData @entity {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  pair: Pair!
+
+  reserve0: BigDecimal!
+  reserve1: BigDecimal!
 }
 
 type PairHourData @entity {
