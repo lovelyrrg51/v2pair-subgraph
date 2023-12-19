@@ -10,15 +10,28 @@ import {
   fetchTokenTotalSupply,
   ZERO_BD,
   ZERO_BI,
-  CERTAIN_PAIR_BLOCK
+  TOKEN_PAIR_BLOCK_BI,
+  USDC_PAIR_BLOCK_BI,
+  USDT_PAIR_BLOCK_BI,
+  DAI_PAIR_BLOCK_BI
 } from './helpers'
 
 export function handleNewPair(event: PairCreated): void {
   // Only Sync Specialized Pair
-  let certainPairBlock = BigInt.fromI32(parseInt(CERTAIN_PAIR_BLOCK) as i32)
-  if (event.block.number != certainPairBlock) {
+  // let certainPairBlock = BigInt.fromI32(parseInt(CERTAIN_PAIR_BLOCK) as i32)
+  // if (event.block.number != TOKEN_PAIR_BLOCK_BI && event.block.number != USDC_PAIR_BLOCK_BI) {
+  //   return
+  // }
+  // if (event.block.number != USDC_PAIR_BLOCK_BI) {
+  //   return
+  // }
+  // if (event.block.number != USDT_PAIR_BLOCK_BI) {
+  //   return
+  // }
+  if (event.block.number != DAI_PAIR_BLOCK_BI) {
     return
   }
+
 
   // load factory (create if first exchange)
   let factory = UniswapFactory.load(FACTORY_ADDRESS)

@@ -237,12 +237,16 @@ type UniswapDayData @entity {
 
 type PairSyncData @entity {
   id: ID!
-  transaction: Transaction!
   timestamp: BigInt!
+  block: Int! # saved for fast historical lookups
   pair: Pair!
 
-  reserve0: BigDecimal!
-  reserve1: BigDecimal!
+  ethPrice: BigDecimal!
+  token0PriceUSD: BigDecimal! # snapshot of token0 price
+  token1PriceUSD: BigDecimal! # snapshot of token1 price
+  reserve0: BigDecimal! # snapshot of pair token0 reserves
+  reserve1: BigDecimal! # snapshot of pair token1 reserves
+  reserveUSD: BigDecimal! # snapshot of pair reserves in USD
 }
 
 type PairHourData @entity {

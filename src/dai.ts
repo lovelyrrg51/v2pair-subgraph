@@ -12,7 +12,7 @@ import {
   PairDayData,
   PairSyncData
 } from '../generated/schema'
-import { V2Pair as PairContract, Mint, Burn, Swap, Transfer, Sync } from '../generated/V2Pair/V2Pair'
+import { DAIPair as PairContract, Mint, Burn, Swap, Transfer, Sync } from '../generated/WETHDAIPair/DAIPair'
 import { updatePairDayData, updateTokenDayData, updatePairHourData, updateUniswapDayData } from './dayUpdates'
 import { getEthPriceInUSD, getTrackedVolumeUSD, getTrackedLiquidityUSD, findEthPerToken } from './pricing'
 import {
