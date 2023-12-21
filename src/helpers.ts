@@ -1,14 +1,14 @@
 /* eslint-disable prefer-const */
 import { log, BigInt, BigDecimal, Address, ethereum } from '@graphprotocol/graph-ts'
-import { ERC20 } from '../generated/V2Pair/ERC20'
-import { ERC20SymbolBytes } from '../generated/V2Pair/ERC20SymbolBytes'
-import { ERC20NameBytes } from '../generated/V2Pair/ERC20NameBytes'
+import { ERC20 } from '../generated/V2Factory/ERC20'
+import { ERC20SymbolBytes } from '../generated/V2Factory/ERC20SymbolBytes'
+import { ERC20NameBytes } from '../generated/V2Factory/ERC20NameBytes'
 import { User, Bundle, Token, LiquidityPosition, LiquidityPositionSnapshot, Pair } from '../generated/schema'
 // import { TokenDefinition } from './tokenDefinition'
 import { V2Factory as FactoryContract } from '../generated/V2Pair/V2Factory'
 
 // Certain Specialized Pair Created Block
-export const CERTAIN_PAIR_BLOCK = '18730054';
+export const CERTAIN_PAIR_BLOCK = '17046833';
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 export const FACTORY_ADDRESS = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f'

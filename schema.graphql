@@ -237,8 +237,8 @@ type UniswapDayData @entity {
 
 type PairSyncData @entity {
   id: ID!
-  transaction: Transaction!
   timestamp: BigInt!
+  block: Int!
   pair: Pair!
 
   reserve0: BigDecimal!
